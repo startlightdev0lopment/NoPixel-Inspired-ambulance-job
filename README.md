@@ -66,7 +66,10 @@ Use `/testbandagesound` to test the audio.
 
 ## Important Notes
 
-- The custom bandage animation `items@clear@custom_anim` requires a separately streamed `.ycd` animation.
+- The custom bandage animation `items@clear@custom_anim` requires a separately streamed `.ycd` animation. 
+
+you will need - custom_animations by karma-devlopments from there emotes package 
+
 - The script supports external death-screen events but does not include a standalone death-screen UI.
 - Configure your hospital locations, EMS interactions and optional integrations in `config.lua`.
 
