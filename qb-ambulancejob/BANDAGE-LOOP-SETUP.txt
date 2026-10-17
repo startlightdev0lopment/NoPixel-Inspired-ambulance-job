@@ -1,0 +1,40 @@
+QB-AMBULANCEJOB BANDAGE AUDIO LOOP v2.2.8
+==========================================
+
+HOW IT WORKS
+- Using a bandage starts a looping bandage.ogg at the start of the progress bar.
+- The loop stops when the item is used successfully OR cancelled.
+- Nearby players within Config.InteractSound.Bandage.Distance hear the same loop.
+- EMS treatment uses the same behaviour.
+- If a callback fails, the loop automatically stops after a safety timeout.
+
+AUDIO REQUIREMENTS
+Keep the sound here:
+  interact-sound/client/html/sounds/bandage.ogg
+Ensure that file is listed in interact-sound/fxmanifest.lua `files { ... }`.
+This version plays the same file from the qb-ambulancejob NUI so it can
+repeat and stop precisely. It does not edit or replace interact-sound.
+
+SETTINGS (qb-ambulancejob/config.lua)
+Config.InteractSound.Bandage.Name = 'bandage'
+Config.InteractSound.Bandage.Volume = 0.35
+Config.InteractSound.Bandage.Distance = 5.0
+Config.InteractSound.Bandage.Duration = 4000 -- Match bandage item usetime
+
+You can keep the current ox_inventory bandage item and its export:
+  export = 'qb-ambulancejob.useBandage'
+  usetime = 4000
+No changes needed to ox_inventory or ox_lib.
+
+INSTALLATION
+1. Back up your current qb-ambulancejob folder.
+2. Replace it with the qb-ambulancejob folder from this ZIP.
+3. Confirm interact-sound is started before qb-ambulancejob.
+4. In server.cfg ensure interact-sound is before qb-ambulancejob.
+5. Restart the server (or restart qb-ambulancejob after interact-sound).
+6. Use /testbandagesound to confirm the loop plays for four seconds.
+7. Use a real bandage and then cancel early: the loop should stop immediately.
+
+NOTE: The custom animation is separate from sound playback. If the custom
+animation dictionary is not streamed, change the item/Config animation back
+to a valid installed clip to avoid an unrelated invalid animDict error.

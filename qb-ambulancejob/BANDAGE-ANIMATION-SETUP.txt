@@ -1,0 +1,55 @@
+STARLIGHT / QB-AMBULANCEJOB - CUSTOM BANDAGE ANIMATION (v2.2.7)
+=================================================================
+
+WHAT CHANGED
+- hospital:client:UseBandage (QBCore/compatible inventory route) now plays:
+  dict: items@clear@custom_anim
+  clip: bandage
+  flag: 49
+  duration: 4000 ms
+- Animation can be changed in config.lua under Config.BandageAnimation.
+- Healing, sound, and bandage consumption are unchanged from v2.2.6.
+
+OX_INVENTORY ITEM: REQUIRED FOR THE NATIVE EXPORT ROUTE
+In ox_inventory/data/items.lua, keep your existing bandage item and use:
+
+['bandage'] = {
+    label = 'Bandage',
+    weight = 115,
+    consume = 1,
+    client = {
+        export = 'qb-ambulancejob.useBandage',
+        anim = {
+            dict = 'items@clear@custom_anim',
+            clip = 'bandage',
+            flag = 49
+        },
+        prop = {
+            model = `prop_rolled_sock_02`,
+            pos = vec3(-0.14, -0.14, -0.08),
+            rot = vec3(-50.0, -50.0, 0.0)
+        },
+        disable = { move = true, car = true, combat = true },
+        usetime = 4000
+    }
+},
+
+Do not add a second healing trigger or duplicate item definition.
+IMPORTANT: ox_inventory's native useItem animation comes from its item definition,
+not from Config.BandageAnimation. Keep both settings in sync.
+
+The anim dict and clip must exist in a running FiveM streamed .ycd resource.
+This ZIP does not include the custom emote's .ycd file.
+
+INSTALLATION
+1. Back up qb-ambulancejob and replace it with the folder from this ZIP.
+2. Keep your current fixed ox_lib and interact-sound resources installed.
+3. Update ox_inventory/data/items.lua only if its bandage animation is not yet
+   set to items@clear@custom_anim / bandage.
+4. Ensure your animation resource before use and restart ox_inventory then
+   qb-ambulancejob (a full restart is recommended after item changes).
+5. Test bandaging. The custom clip should play during the 4-second progress,
+   while the existing sound plays near the start.
+
+NOTE: If the emote does not play, check that the streamed animation resource
+actually contains the dictionary items@clear@custom_anim with clip bandage.
